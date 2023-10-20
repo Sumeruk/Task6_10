@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Diff</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td style="width: 50%; vertical-align: top;">
+                <h3>Добавленные строки:</h3>
+                <ul>
+                    {% for line in first_subs %}
+                        <li>{{ line }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td style="width: 50%; vertical-align: top;">
+                <h3>Удаленные строки:</h3>
+                <ul>
+                    {% for line in second_subs %}
+                        <li>{{ line }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

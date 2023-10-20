@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Diff Tool</title>
+    <script>
+        function handleFileSelect(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            var files = evt.dataTransfer.files;
+            var output = [];
+            for (var i = 0, f; f === files[i]; i++) {
+                output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                    f.size, ' bytes</li>');
+            }
+            document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+            document.getElementById('file1').files = files;
+        }
+
+        function handleDragOver(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            evt.dataTransfer.dropEffect = 'copy';
+        }
+
+        var dropZone = document.getElementById('drop_zone');
+        dropZone.addEventListener('dragover', handleDragOver, false);
+        dropZone.addEventListener('drop', handleFileSelect, false);
+    </script>
+</head>
+<body>
+<h1>Diff Tool</h1>
+<div id="drop_zone" style="border: 2px dashed gray; padding: 20px;">
+    <p>Drop files here to upload:</p>
+    <ul id="list"></ul>
+</div>
+<br>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file1" id="file1" >
+    <input type="file" name="file2" style="display:none;">
+    <button type="submit">Compare</button>
+</form>
+</body>
+</html>
